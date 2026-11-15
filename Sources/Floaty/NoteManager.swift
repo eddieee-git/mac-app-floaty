@@ -205,7 +205,7 @@ final class NoteManagerModel: ObservableObject {
     private func confirm(_ message: String, button: String) -> Bool {
         let alert = NSAlert()
         alert.messageText = message
-        alert.informativeText = L("이 작업은 되돌릴 수 없습니다.")
+        alert.informativeText = L("이 작업은 되돌릴 수 없어요.")
         alert.alertStyle = .warning
         alert.addButton(withTitle: button).hasDestructiveAction = true
         alert.addButton(withTitle: L("취소"))
@@ -340,7 +340,7 @@ struct NoteManagerView: View {
             MultipleSelectionDetail(model: model, ids: selected)
         } else {
             let _ = model.releaseEditor()
-            Text(model.notes.isEmpty ? L("메모가 없습니다") : L("왼쪽에서 메모를 고르세요"))
+            Text(model.notes.isEmpty ? L("메모가 없어요") : L("왼쪽에서 메모를 고르세요"))
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -417,7 +417,7 @@ private struct NoteSidebar: View {
             }
             .overlay {
                 if notes.isEmpty {
-                    Text(model.query.isEmpty ? (model.filter == .trash ? L("휴지통이 비어 있습니다") : L("메모가 없습니다")) : L("찾는 내용이 없습니다"))
+                    Text(model.query.isEmpty ? (model.filter == .trash ? L("휴지통이 비어 있어요") : L("메모가 없어요")) : L("찾는 내용이 없어요"))
                         .foregroundStyle(.secondary)
                 }
             }
@@ -551,7 +551,7 @@ private struct ActiveNoteDetail: View {
             if controller.isContentHidden {
                 VStack(spacing: 10) {
                     Image(systemName: "lock.fill").font(.title)
-                    Text(L("잠긴 메모입니다"))
+                    Text(L("잠긴 메모예요"))
                     Button(L("잠금 해제")) { controller.unlock() }
                 }
                 .foregroundStyle(.secondary)
@@ -607,7 +607,7 @@ private struct TrashedNoteDetail: View {
             .padding(12)
             Divider()
             if note.isLocked {
-                Text(L("잠긴 메모라 내용을 보여 주지 않습니다.\n되살린 뒤 잠금을 풀어 보세요."))
+                Text(L("잠긴 메모라 내용을 보여 주지 않아요.\n되살린 뒤 잠금을 풀어 보세요."))
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -678,7 +678,7 @@ extension MultipleSelectionDetail {
             PaletteMenuItems(selected: colors.count == 1 ? colors.first : nil) { model.setColor($0, ids) }
         }
         .fixedSize()
-        .help(L("고른 스티커의 색을 한 번에 바꿉니다"))
+        .help(L("고른 스티커의 색을 한 번에 바꿔요"))
     }
 }
 

@@ -494,8 +494,8 @@ final class FormattingTextView: NSTextView {
         }
         let alert = NSAlert()
         alert.alertStyle = .warning
-        alert.messageText = L("웹 주소가 아닌 링크입니다")
-        alert.informativeText = L("이 링크는 파일이나 다른 앱을 열 수 있습니다. 믿을 수 있는 링크일 때만 여세요.\n\n%@", url.absoluteString)
+        alert.messageText = L("웹 주소가 아닌 링크예요")
+        alert.informativeText = L("이 링크는 파일이나 다른 앱을 열 수 있어요. 믿을 수 있는 링크일 때만 여세요.\n\n%@", url.absoluteString)
         alert.addButton(withTitle: L("취소"))
         alert.addButton(withTitle: L("열기"))
         NSApp.activate(ignoringOtherApps: true)

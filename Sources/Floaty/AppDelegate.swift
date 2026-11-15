@@ -143,21 +143,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, UNUser
         guard let problem = store.loadProblem else { return }
         let alert = NSAlert()
         alert.alertStyle = .warning
-        alert.messageText = L("스티커 목록 파일을 제대로 읽지 못했습니다")
+        alert.messageText = L("스티커 목록 파일을 제대로 읽지 못했어요")
         var reveal: URL?
         switch problem {
         case let .unreadable(preserved, restoredFrom):
             reveal = preserved ?? store.directory
             if preserved == nil {
-                alert.informativeText = L("파일을 열 수 없어 내용을 덮어쓰지 않도록 저장을 멈췄습니다. Floaty를 끄고 파일 권한을 확인해 주세요.")
+                alert.informativeText = L("파일을 열 수 없어 내용을 덮어쓰지 않도록 저장을 멈췄어요. Floaty를 끄고 파일 권한을 확인해 주세요.")
             } else if let restoredFrom {
-                alert.informativeText = L("깨진 파일은 옆에 따로 두고, %@ 백업에서 스티커 목록을 되살렸습니다. 그 뒤에 바꾼 위치·색·제목은 빠졌을 수 있습니다.", restoredFrom)
+                alert.informativeText = L("깨진 파일은 옆에 따로 두고, %@ 백업에서 스티커 목록을 되살렸어요. 그 뒤에 바꾼 위치·색·제목은 빠졌을 수 있어요.", restoredFrom)
             } else {
-                alert.informativeText = L("깨진 파일은 옆에 따로 두었습니다. 되살릴 백업이 없어 빈 목록으로 시작합니다.")
+                alert.informativeText = L("깨진 파일은 옆에 따로 두었어요. 되살릴 백업이 없어 빈 목록으로 시작해요.")
             }
         case let .partial(skipped, preserved):
             reveal = preserved
-            alert.informativeText = L("스티커 %d개를 읽지 못해 빼고 열었습니다. 원래 파일은 옆에 복사해 두었습니다.", skipped)
+            alert.informativeText = L("스티커 %d개를 읽지 못해 빼고 열었어요. 원래 파일은 옆에 복사해 두었어요.", skipped)
         }
         alert.addButton(withTitle: L("확인"))
         if reveal != nil { alert.addButton(withTitle: L("Finder에서 보기")) }
@@ -589,7 +589,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, UNUser
         }
         if !failed.isEmpty {
             let alert = NSAlert()
-            alert.messageText = L("파일을 읽지 못했습니다")
+            alert.messageText = L("파일을 읽지 못했어요")
             alert.informativeText = failed.joined(separator: "\n")
             alert.runModal()
         }
@@ -621,7 +621,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, UNUser
         DispatchQueue.main.async { self.ignoresFocusHandover = false }
         store.trash(id: id)
         if !isEmpty && wasVisible {
-            undoToast.show(message: L("휴지통으로 옮겼습니다"), near: frame) { [weak self] in
+            undoToast.show(message: L("휴지통으로 옮겼어요"), near: frame) { [weak self] in
                 self?.restoreFromTrash(id)
                 self?.controllers[id]?.panel.makeKeyAndOrderFront(nil)
             }
@@ -634,7 +634,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, UNUser
         NSApp.activate(ignoringOtherApps: true)
         let alert = NSAlert()
         alert.messageText = L("스티커를 휴지통으로 옮길까요?")
-        alert.informativeText = L("메뉴바의 휴지통 관리에서 되살릴 수 있습니다.")
+        alert.informativeText = L("메뉴바의 휴지통 관리에서 되살릴 수 있어요.")
         alert.addButton(withTitle: L("휴지통으로 이동"))
         alert.addButton(withTitle: L("취소"))
         // 늘 묻는 경우에는 "다시 묻지 않기"가 이 키에는 듣지 않으므로 보이지 않는다.

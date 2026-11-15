@@ -82,7 +82,7 @@ enum NoteFile {
         panel.canCreateDirectories = true
         panel.prompt = L("저장")
         panel.message = L("스티커 %d개를 저장할 폴더를 고르세요.", items.count)
-            + (lockedCount > 0 ? L(" 잠긴 스티커 %d개는 제외합니다.", lockedCount) : "")
+            + (lockedCount > 0 ? L(" 잠긴 스티커 %d개는 제외해요.", lockedCount) : "")
         NSApp.activate(ignoringOtherApps: true)
         guard panel.runModal() == .OK, let folder = panel.url else { return }
         do {

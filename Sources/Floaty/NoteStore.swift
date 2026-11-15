@@ -239,7 +239,7 @@ final class NoteStore: ObservableObject {
                 data = try NoteCrypto.decrypt(data)
             } catch {
                 unreadableBodies.insert(id)
-                return NSAttributedString(string: L("이 메모의 암호를 풀 수 없습니다. 다른 Mac에서 옮겨 왔다면 원래 Mac에서 잠금을 없앤 뒤 옮겨 주세요."),
+                return NSAttributedString(string: L("이 메모의 암호를 풀 수 없어요. 다른 Mac에서 옮겨 왔다면 원래 Mac에서 잠금을 없앤 뒤 옮겨 주세요."),
                                           attributes: FormattingTextView.defaultAttributes)
             }
         }

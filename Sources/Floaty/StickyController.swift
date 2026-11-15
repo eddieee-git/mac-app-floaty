@@ -240,7 +240,7 @@ final class StickyController: NSObject, ObservableObject, NSWindowDelegate, NSTe
         guard !isAuthenticating else { return }
         isAuthenticating = true
         NSApp.activate(ignoringOtherApps: true)
-        LAContext().evaluatePolicy(.deviceOwnerAuthentication, localizedReason: L("잠긴 스티커를 열려고 합니다")) { success, error in
+        LAContext().evaluatePolicy(.deviceOwnerAuthentication, localizedReason: L("잠긴 스티커를 열려고 해요")) { success, error in
             DispatchQueue.main.async {
                 self.isAuthenticating = false
                 if success {
@@ -334,7 +334,7 @@ final class StickyController: NSObject, ObservableObject, NSWindowDelegate, NSTe
 
         let alert = NSAlert()
         alert.messageText = L("알람 설정")
-        alert.informativeText = L("지정한 시각에 이 스티커만 앞으로 나타납니다.")
+        alert.informativeText = L("지정한 시각에 이 스티커만 앞으로 나타나요.")
         alert.accessoryView = stack
         alert.addButton(withTitle: L("설정"))
         alert.addButton(withTitle: L("취소"))

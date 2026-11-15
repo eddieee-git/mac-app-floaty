@@ -41,6 +41,7 @@ struct SettingsView: View {
         case colors = "색상"
         case sounds = "소리"
         case shortcuts = "단축키"
+        case about = "정보"
     }
 
     @ObservedObject var settings: AppSettings
@@ -70,6 +71,9 @@ struct SettingsView: View {
             case .colors: colors
             case .sounds: sounds
             case .shortcuts: shortcuts
+            case .about:
+                Form { AppAboutSections(appName: "Floaty", english: settings.language == .english) }
+                    .formStyle(.grouped)
             }
         }
     }
@@ -101,9 +105,9 @@ struct SettingsView: View {
     private var sounds: some View {
         Form {
             Section {
-                Toggle(L("효과음 켜기 (알람 소리는 항상 납니다)"), isOn: $settings.soundEffects)
+                Toggle(L("효과음 켜기 (알람 소리는 항상 나요)"), isOn: $settings.soundEffects)
                 Toggle(L("알람을 알림 센터에도 보내기"), isOn: $settings.alarmNotifications)
-                    .help(L("화면을 보고 있지 않았어도 알림 목록에서 확인할 수 있습니다. 처음 한 번 알림 권한을 묻습니다."))
+                    .help(L("화면을 보고 있지 않았어도 알림 목록에서 확인할 수 있어요. 처음 한 번 알림 권한을 물어요."))
                 SoundEditor(settings: settings)
             }
         }
@@ -259,7 +263,7 @@ private struct SoundEditor: View {
         guard panel.runModal() == .OK, let url = panel.url else { return }
         guard NSSound(contentsOf: url, byReference: true) != nil else {
             let alert = NSAlert()
-            alert.messageText = L("소리 파일을 읽지 못했습니다")
+            alert.messageText = L("소리 파일을 읽지 못했어요")
             alert.informativeText = url.lastPathComponent
             alert.runModal()
             return
@@ -300,13 +304,13 @@ private struct HotKeyEditor: View {
         } header: {
             Text(L("스티커 안 단축키"))
         } footer: {
-            Text(L("앞에 있는 스티커에서만 동작합니다. 맥북에서 F2를 쓰려면 fn 키와 함께 누르세요."))
+            Text(L("앞에 있는 스티커에서만 동작해요. 맥북에서 F2를 쓰려면 fn 키와 함께 누르세요."))
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
         Section {
             HStack {
-                Text(message ?? L("Esc를 누르면 입력을 취소합니다."))
+                Text(message ?? L("Esc를 누르면 입력을 취소해요."))
                     .font(.caption)
                     .foregroundStyle(message == nil ? Color.secondary : Color.red)
                 Spacer()
@@ -387,7 +391,7 @@ private struct HotKeyEditor: View {
         // 전역 단축키가 먼저 가로채므로 스티커 안 단축키와도 겹치면 안 된다.
         let others: [ShortcutSlot] = HotKeyAction.allCases.map { .global($0) } + [.rename]
         if let other = others.first(where: { $0 != slot && self.combo(for: $0) == combo }) {
-            message = L("%@에서 쓰는 단축키입니다.", other.title)
+            message = L("%@에서 쓰는 단축키예요.", other.title)
             return
         }
         setCombo(combo, for: slot)
@@ -411,7 +415,7 @@ private struct ColorEditor: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(L("%@ 테마의 색을 바꿉니다.", isDark ? L("다크") : L("라이트")))
+            Text(L("%@ 테마의 색을 바꿔요.", isDark ? L("다크") : L("라이트")))
                 .font(.caption)
                 .foregroundStyle(.secondary)
             Grid(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 8) {

@@ -1,3 +1,7 @@
+> 문서·UI 규칙은 ../mac-app/STYLE.md를 따른다. 다르게 할 때는 여기에 이유를 적는다.
+
+> 업데이트 코드(`AppUpdater.swift`)는 다섯 앱 공통이다. 여기서 고치지 않고 ../mac-app/shared/AppUpdater.swift를 고친 뒤 ../mac-app/scripts/sync-shared.sh로 복사한다. 이 앱에만 해당하는 값은 `UpdaterSetup.swift`에 있다. 시험할 때는 디버그 빌드에서 `-debugUpdateURL <주소>`, `-debugUpdatePublicKey <키>`, `-debugAppVersion <버전>`을 쓴다.
+
 # Floaty 작업 안내
 
 macOS 메뉴바에 사는 떠 있는 스티커 메모 앱. AppKit + SwiftUI, SwiftPM으로만 빌드한다(Xcode 프로젝트 없음). Apple 실리콘, macOS 13 이상.
@@ -17,7 +21,7 @@ macOS 메뉴바에 사는 떠 있는 스티커 메모 앱. AppKit + SwiftUI, Swi
 - 설정은 `AppSettings`(UserDefaults, `@Published` + `didSet` 저장). 새 설정은 `Keys`, 프로퍼티, `init`의 기본값 세 곳에 넣고, 화면은 `SettingsWindow.swift`.
 - 화면 문구는 한국어로 쓰고 `L("한국어")`로 감싼다. 영어는 `Localization.swift`의 `english` 사전에 같은 키로 넣는다. 빠뜨리면 영어 화면에 한국어가 나온다.
 - 주석은 한국어로, 무엇보다 왜를 적는다.
-- 앱 안 업데이트는 `Updater.swift`. GitHub `releases/latest`를 보고, dmg를 `.sig`(Ed25519)로 확인한 뒤 번들을 바꾸고 다시 켠다. 공개 키는 코드에 있다.
+- 앱 안 업데이트는 `AppUpdater.swift`(공통)와 `UpdaterSetup.swift`. GitHub `releases/latest`를 보고, dmg를 `.sig`(Ed25519)로 확인한 뒤 번들을 바꾸고 다시 켠다. 공개 키는 코드에 있다.
 
 ## 빌드와 설치
 
@@ -46,7 +50,7 @@ osascript -e 'quit app "Floaty"'; rm -rf /Applications/Floaty.app && ditto build
 4. 실제 스티커를 건드리지 않도록 `HOME`과 `CFFIXED_USER_HOME`을 임시 폴더로 바꿔 실행한다. 모달 알림은 `.modalPanel` 모드에 넣은 Timer로 `NSApp.stopModal(withCode:)`를 불러 닫는다.
 5. 시험 실행 파일도 메뉴바 아이콘을 띄운다. 기다리다 멈추면 꼭 `kill`해서, 진짜 Floaty 옆에 아이콘이 하나 더 남지 않게 한다.
 
-업데이트 기능은 `FLOATY_UPDATE_FEED` 환경 변수로 로컬 서버(`python3 -m http.server`)의 가짜 릴리스 JSON을 보게 해서 시험한다. 이때 번들 ID를 바꾼 시험용 `.app` 안에서 실행해야 켜져 있는 Floaty와 겹치지 않는다.
+업데이트 기능은 디버그 빌드의 `-debugUpdateURL` 인자로 로컬 서버(`python3 -m http.server`)의 가짜 릴리스 JSON을 보게 해서 시험한다. 이때 번들 ID를 바꾼 시험용 `.app` 안에서 실행해야 켜져 있는 Floaty와 겹치지 않는다.
 
 ## 문서
 
