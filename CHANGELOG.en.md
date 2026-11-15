@@ -2,6 +2,13 @@
 
 Details for each version are in [docs/releases](docs/releases) and [GitHub Releases](https://github.com/eddieee-git/mac-app-floaty/releases). 한국어: [CHANGELOG.md](CHANGELOG.md)
 
+## 0.2.3 (2026-11-15)
+
+- **Update settings**: The Updates section in Settings → General has separate switches for automatic checks (on by default) and automatic installs (off by default), plus **Check Now**.
+- **Stronger update checks**: A download is installed only after its signature, SHA-256, and code signature are verified.
+- **About tab**: Settings shows the version and links to GitHub, the changelog, problem reports, and other apps by the same developer.
+- **Wording**: Alerts and messages use a friendlier tone in Korean.
+
 ## 0.2.2 (2026-11-13)
 
 - **Esc expands again**: Pressing Esc on a collapsed sticky expands it, ready for typing.
