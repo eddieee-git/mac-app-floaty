@@ -13,6 +13,8 @@ macOS 메뉴바에 사는 떠 있는 스티커 메모 앱. AppKit + SwiftUI, Swi
 - **타이머·시계 알람은 짝꿍 앱 Clocky**([mac-app-clocky](https://github.com/eddieee-git/mac-app-clocky))의 몫이다. Floaty에는 스티커마다 거는 알람만 둔다.
 - **`REQUIREMENTS.md`는 로컬 전용**이다(.gitignore). 커밋하거나 내용을 공개 문서·커밋 메시지에 옮기지 않는다.
 - **push와 릴리스는 사용자가 말할 때만** 한다. 평소에는 구현 → 빌드 → `/Applications`에 다시 설치 → 로컬 커밋까지.
+- 커밋은 `main`에 바로 하지 않고 작업 브랜치에서 한 뒤 `main`에 합친다(공통 규칙).
+- 사용자는 코딩을 잘 모른다. 한국어 쉬운 말로, 지금 단계와 남은 단계를 알려 준다.
 - 커밋 작성자는 `eddieee-git <10068254+eddieee-git@users.noreply.github.com>`.
 
 ## 코드
@@ -41,7 +43,15 @@ osascript -e 'quit app "Floaty"'; rm -rf /Applications/Floaty.app && ditto build
 
 ## 시험
 
-자동 테스트 타깃은 없다. 기능을 바꾸면 임시 폴더에 시험용 실행 파일을 만들어 확인한다.
+먼저 자체 점검을 돌린다. 디버그 빌드 뒤 앱의 `--self-test` 모드를 실행한다.
+
+```bash
+./scripts/test.sh
+```
+
+업데이트 전 과정(확인 → 내려받기 → 서명 확인 → 바꿔 넣기 → 다시 켜기)은 `../mac-app/scripts/e2e-update-test.sh`로 확인한다.
+
+키·창 동작처럼 자체 점검이 다루지 않는 것은 임시 폴더에 시험용 실행 파일을 만들어 확인한다.
 
 1. `Sources/Floaty/*.swift`를 복사하고 `main.swift`는 뺀다.
 2. 내부를 건드릴 수 있게 `private`을 지운다:
@@ -65,14 +75,29 @@ osascript -e 'quit app "Floaty"'; rm -rf /Applications/Floaty.app && ditto build
 
 ## 릴리스
 
-1. `Resources/Info.plist`의 `CFBundleShortVersionString`과 `CFBundleVersion`(1씩 올림)을 바꾸고, 두 변경 기록의 "다음 버전"/"Next version" 제목을 그 버전 번호로 바꾼다(없으면 새로 쓴다).
-2. `scripts/build-app.sh`로 빌드한다. 서명 키는 저장소 밖 `~/.config/floaty/update-signing.key`에 있다(`FLOATY_UPDATE_KEY`로 바꿀 수 있음). 키가 없으면 `.sig`가 안 생기고, 그 릴리스는 앱 안에서 자동 설치되지 않는다.
-3. `git push origin main`.
-4. 릴리스를 만든다. dmg, `.sig`, 0.2.1 호환 사본까지 네 파일을 모두 올린다.
+1. `Resources/Info.plist`의 `CFBundleShortVersionString`과 `CFBundleVersion`(1씩 올림)을 바꾸고, 두 변경 기록의 "다음 버전"/"Next version" 제목을 `## <버전> (YYYY-MM-DD)`로 바꾼다(없으면 새로 쓴다). 항목은 0.2.3부터 짧은 명사형(`- **이름**: 설명`)으로 쓴다.
+2. 릴리스 노트를 `docs/releases/v<버전>.md`에 쓴다. 틀은 `../mac-app/templates/release-note.md`, 한국어 다음 `## English`.
+3. `./scripts/test.sh`를 돌린 뒤 `scripts/build-app.sh`로 빌드한다. 서명 키는 저장소 밖 `~/.config/floaty/update-signing.key`에 있다(`FLOATY_UPDATE_KEY`로 바꿀 수 있음). 키가 없으면 `.sig`가 안 생기고, 그 릴리스는 앱 안에서 자동 설치되지 않는다.
+4. `git push origin main`.
+5. 릴리스를 만든다. dmg, `.sig`, 0.2.1 호환 사본까지 네 파일을 모두 올린다.
    ```bash
-   gh release create v<버전> build/Floaty-<버전>.dmg build/Floaty-<버전>.dmg.sig build/Floaty.dmg build/Floaty.dmg.sig --title "Floaty <버전>" --notes-file <노트> --latest
+   gh release create v<버전> build/Floaty-<버전>.dmg build/Floaty-<버전>.dmg.sig build/Floaty.dmg build/Floaty.dmg.sig --title "Floaty <버전>" --notes-file docs/releases/v<버전>.md --latest
    ```
-   노트는 이전 릴리스 형식을 따른다: 한국어 요약 → 설치와 업데이트 → 바뀐 점 → 요구 사항 → `## English` → SHA-256 체크섬.
-5. `curl`로 `releases/latest`를 받아 네 파일이 다 있는지, 받은 dmg의 체크섬과 서명이 맞는지 확인한다.
+6. `curl`로 `releases/latest`를 받아 네 파일이 다 있는지, 받은 dmg의 체크섬과 서명이 맞는지 확인한다.
 
 서명 키를 새로 만들면(`swift scripts/sign-update.swift keygen`) 이미 설치된 앱은 새 릴리스를 자동으로 받지 못한다. 키는 잃어버리지 않게 따로 백업한다.
+
+## 지금 상태 (2026-11-16)
+
+다섯 앱 전체의 상태와 남은 일은 `../mac-app/CLAUDE.md`와 `../mac-app/CHECKLIST.md`에 있다. 여기에는 Floaty 것만 적는다.
+
+- **최신 릴리스는 0.2.3(2026-11-15)**이고 `main`과 GitHub가 같다. 아직 내지 않은 변경은 없고, 다음 버전은 0.2.4.
+- **업데이트**: 0.2.2 → 0.2.3 앱 안 업데이트는 사용자가 실제로 확인했다. 공통 AppUpdater가 실제 릴리스로 스스로 업데이트하는 것은 0.2.4를 낼 때 처음 일어난다.
+- **0.2.1 호환 사본**(`Floaty.dmg`, `Floaty.dmg.sig`): 0.2.1 사용자가 거의 없어지면 `build-app.sh`와 릴리스 명령에서 뺀다.
+
+### 남은 일
+
+- [ ] **설정 창 스크린샷 다시 찍기**: 정보 탭과 새 업데이트 칸이 생겼다. 개인 내용이 찍힐 수 있어 사용자가 찍는다.
+- [ ] **안 쓰는 번역 정리**: 옛 업데이트 코드(`Updater.swift`) 문구가 `Localization.swift`의 `english` 사전에 남아 있다.
+- [ ] **Swift 6 경고**: `AppDelegate`에서 `AppUpdater.shared`를 부르는 줄. Swift 5 모드에서는 동작에 영향 없음.
+- [ ] **실제 키보드 확인**: Esc 두 번(최소화 → 펼치기), F2, ⌘⌫, ⌃⌘⌫, 한글 조합 중 Esc는 시험용 실행 파일로만 확인했다. Floaty는 메뉴바 앱이라 Claude의 화면 제어 도구 목록에 나오지 않으니 사용자에게 눌러 봐 달라고 한다.
