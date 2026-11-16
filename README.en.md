@@ -76,7 +76,7 @@ Global shortcuts can be changed or turned off in Settings → **Shortcuts**. For
 
 | Tab | What's there |
 |---|---|
-| General | Language, theme, open at login, confirm before deleting, empty the Trash after 30 days (on by default), check for new versions automatically (on by default) and install them automatically (off by default) |
+| General | Language, theme, open at login, confirm before deleting, empty the Trash after 30 days (on by default), check for new versions automatically (on by default) and install them automatically (on by default) |
 | Stickies | Default size, font, text size, always on top and color for new stickies; opacity for all stickies |
 | Dates | Date, year, weekday and time formats |
 | Colors | Title row and background for each of the 10 colors (light and dark separately) |

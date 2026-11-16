@@ -51,14 +51,14 @@ Menu bar icon → **Settings…** → **General**, then turn on **Open at login*
 
 ## Updating
 
-Starting with 0.2.1, Floaty checks for a new version once a day and tells you when one is out. When there is one, the menu bar menu shows **Install Version 0.x.x…**. You can also check right away with menu bar icon → **Check for Updates…**. Click **Install and Relaunch** to download the new version, replace the app, and restart Floaty.
+Starting with 0.2.1, Floaty checks for a new version once a day and tells you when one is out. When there is one, the menu bar menu shows **Install Version 0.x.x…**. You can also check right away with menu bar icon → **Check for Updates…**. When Floaty finds one, it downloads it, replaces itself and relaunches on its own while you aren't using it. If you check yourself or choose **Install Version 0.x.x…** from the menu, it installs right away without asking.
 
 - The download is installed only after its signature is checked against the developer's signing key. If the signature doesn't match, nothing is installed.
 - Because the app downloads the file itself, the security warning and **Open Anyway** don't come back.
 - Floaty can update itself only from a folder it can write to, such as Applications.
 - If you use locking, the first time you open a locked note after an update macOS may ask about keychain access. Click **Always Allow**.
 
-Turn off automatic checks with **Check for new versions automatically** in Settings → General → Updates. Turn on **Install new versions automatically** to have Floaty install updates by itself while you aren't using it (off by default).
+Turn off automatic checks with **Check for new versions automatically** in Settings → General → Updates. If you'd rather not have updates installed on their own, turn off **Install new versions automatically** (on by default). With it off, Floaty tells you once when a new version is out.
 
 To update from 0.2.0 or earlier, or by hand:
 

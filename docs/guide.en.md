@@ -173,7 +173,7 @@ Open with menu bar icon → **Settings…**.
 
 | Tab | Contents |
 |---|---|
-| General | Language (Korean or English, applies immediately), theme, open at login, confirm before deleting, empty Trash after 30 days (on by default), check for new versions automatically (on by default) and install them automatically (off by default) |
+| General | Language (Korean or English, applies immediately), theme, open at login, confirm before deleting, empty Trash after 30 days (on by default), check for new versions automatically (on by default) and install them automatically (on by default) |
 | Stickies | Default size, font, text size, always on top, and color (random or fixed) for new stickies. Opacity and bottom-row display for all stickies |
 | Date | Date, year, weekday, and time formats. Changing the language also switches language-specific formats, such as "Fri" and "3:05 PM" |
 | Colors | Title row and background colors for the 10 colors, set separately for light and dark |
