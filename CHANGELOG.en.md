@@ -2,6 +2,10 @@
 
 Details for each version are in [docs/releases](docs/releases) and [GitHub Releases](https://github.com/eddieee-git/mac-app-floaty/releases). 한국어: [CHANGELOG.md](CHANGELOG.md)
 
+## Next version
+
+- **Automatic installs on by default**: While you aren't using Floaty, it downloads a new version, swaps it in, and restarts. Clicking **Check for Updates…** or **Install Version X…** installs right away without asking. Turn it off in Settings → General.
+
 ## 0.2.3 (2026-11-15)
 
 - **Update settings**: The Updates section in Settings → General has separate switches for automatic checks (on by default) and automatic installs (off by default), plus **Check Now**.
