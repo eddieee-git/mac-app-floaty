@@ -2,7 +2,7 @@
 
 버전마다 자세한 내용은 [docs/releases](docs/releases)와 [GitHub 릴리스](https://github.com/eddieee-git/mac-app-floaty/releases)에 있어요. English: [CHANGELOG.en.md](CHANGELOG.en.md)
 
-## 다음 버전
+## 0.2.4 (2026-11-19)
 
 - **자동 설치 기본 켬**: Floaty를 쓰고 있지 않을 때 새 버전을 알아서 받아 바꿔 넣고 다시 켜요. **업데이트 확인…**이나 **새 버전 X 설치…**를 누르면 묻지 않고 바로 설치. 설정 → 일반에서 끌 수 있어요.
 
